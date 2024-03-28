@@ -41,7 +41,6 @@ pygame.display.set_caption('Змейка')
 # Настройка времени:
 clock = pygame.time.Clock()
 
-
 # Тут опишите все классы игры.
 class GameObject:
     """Экран объекта."""
@@ -51,9 +50,8 @@ class GameObject:
         self.body_color = body_color
 
     def draw(self):
-        '''Заглушка метод определен в потомках.'''
+        """Заглушка метод определен в потомках."""
         raise NotImplementedError(f'Определите draw{type(self).__name__}')
-
 
 class Apple(GameObject):
     """Яблоко."""
@@ -74,7 +72,6 @@ class Apple(GameObject):
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
-
 
 class Snake(GameObject):
     """Змейка."""
@@ -148,7 +145,6 @@ class Snake(GameObject):
     def get_head_position(self):
         return self.positions[0]
 
-
 def handle_keys(game_object):
 
     for event in pygame.event.get():
@@ -164,7 +160,6 @@ def handle_keys(game_object):
                 game_object.next_direction = LEFT
             elif event.key == pygame.K_RIGHT and game_object.direction != LEFT:
                 game_object.next_direction = RIGHT
-
 
 def main():
     # Тут нужно создать экземпляры классов.
@@ -185,9 +180,7 @@ def main():
         snake.draw()
         apple.draw()
 
-
         pygame.display.update()
-
 
 if __name__ == '__main__':
     main()
