@@ -1,5 +1,4 @@
 from random import randint
-
 import pygame
 
 # Инициализация PyGame:
@@ -162,7 +161,7 @@ def handle_keys(game_object):
                 game_object.next_direction = RIGHT
 
 def main():
-    # Тут нужно создать экземпляры классов.
+    """Тут нужно создать экземпляры классов."""
     apple = Apple()
     snake = Snake()
 
