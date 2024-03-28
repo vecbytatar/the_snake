@@ -117,6 +117,7 @@ class Snake(GameObject):
         if self.next_direction:
             self.direction = self.next_direction
 
+    # Метод draw класса Snake
     def draw(self):
          """Отрисовывает змейку на экране."""
         for position in self.positions[:-1]:
