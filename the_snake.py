@@ -1,6 +1,4 @@
-"""
-Модуль, который использует библиотеку pygame и функцию randint из модуля random.
-"""
+"""Модуль, использующий библиотеку pygame и функцию randint из модуля random."""
 
 from random import randint
 import pygame
@@ -45,10 +43,13 @@ pygame.display.set_caption('Змейка')
 clock = pygame.time.Clock()
 
 # Тут опишите все классы игры.
+
+
 class GameObject:
     """Экран объекта."""
 
     def __init__(self, body_color=APPLE_COLOR) -> None:
+        """Задает новый объект и Цвет тела объекта."""
         self.position = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         self.body_color = body_color
 
@@ -56,15 +57,17 @@ class GameObject:
         """Заглушка метод определен в потомках."""
         raise NotImplementedError(f'Определите draw{type(self).__name__}')
 
+
 class Apple(GameObject):
     """Яблоко."""
 
     def __init__(self, body_color=APPLE_COLOR) -> None:
+        """Инициализирует яблоко на игром поле."""
         super().__init__(body_color)
         self.position = self.randomize_position()
 
     def randomize_position(self):
-        """Случайная позиция яблока."""
+        """Установка случайного положения яблока на поле."""
         return (
             randint(0, GRID_WIDTH) * GRID_SIZE - GRID_SIZE,
             randint(0, GRID_HEIGHT) * GRID_SIZE - GRID_SIZE
@@ -77,10 +80,12 @@ class Apple(GameObject):
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
+
 class Snake(GameObject):
     """Змейка."""
 
     def __init__(self):
+        """Инициализирует начальное состояние змеи."""
         self.length = 1
         self.position = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         self.positions = [(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)]
@@ -91,7 +96,8 @@ class Snake(GameObject):
 
     def move(self):
         """
-        Обновляет позиция змейка и ещё добавляет новую голову
+        Обновляет позицию змеи и добавляет новую голову.
+        
         и удаляет последний сегмент, если длина не увеличилась.
         """
         if self.next_direction:
@@ -112,9 +118,10 @@ class Snake(GameObject):
 
     def update_direction(self):
         """
-        Возвращает позицию головы змейки
+        Возвращает позицию головы змейки.
+
         (вроде первый элемент в списке positions).
-        """        
+        """
         if self.next_direction:
             self.direction = self.next_direction
 
@@ -138,7 +145,8 @@ class Snake(GameObject):
 
     def reset(self):
         """
-        Сбрасывает змейку в начальное состояние
+        Сбрасывает змейку в начальное состояние.
+
         после столкновение с собой.
         """
         self.length = 1
@@ -147,10 +155,12 @@ class Snake(GameObject):
         self.next_direction = None
 
     def get_head_position(self):
+        """Возвращает позицию головы змеи."""
         return self.positions[0]
 
-def handle_keys(game_object):
 
+def handle_keys(game_object):
+    """Обработка нажитий на клавиши для управления змеей."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -164,6 +174,7 @@ def handle_keys(game_object):
                 game_object.next_direction = LEFT
             elif event.key == pygame.K_RIGHT and game_object.direction != LEFT:
                 game_object.next_direction = RIGHT
+
 
 def main() -> None:
     """функция выполнения игры цикл."""
