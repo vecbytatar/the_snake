@@ -1,4 +1,8 @@
-"""Модуль, использующий библиотеку pygame и функцию randint из модуля random."""
+"""
+Модуль, использующий библиотеку pygame.
+
+и функцию randint из модуля random.
+"""
 
 from random import randint
 import pygame
@@ -97,7 +101,7 @@ class Snake(GameObject):
     def move(self):
         """
         Обновляет позицию змеи и добавляет новую голову.
-        
+
         и удаляет последний сегмент, если длина не увеличилась.
         """
         if self.next_direction:
