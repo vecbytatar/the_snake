@@ -160,8 +160,8 @@ def handle_keys(game_object):
             elif event.key == pygame.K_RIGHT and game_object.direction != LEFT:
                 game_object.next_direction = RIGHT
 
-def main():
-    """Тут нужно создать экземпляры классов."""
+def main() -> None:
+    """функция выполнения игры цикл."""
     apple = Apple()
     snake = Snake()
 
@@ -180,6 +180,7 @@ def main():
         apple.draw()
 
         pygame.display.update()
+
 
 if __name__ == '__main__':
     main()
