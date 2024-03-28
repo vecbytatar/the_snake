@@ -1,4 +1,4 @@
-from random import choice, randint
+from random import randint
 
 import pygame
 
@@ -44,30 +44,32 @@ clock = pygame.time.Clock()
 
 # Тут опишите все классы игры.
 class GameObject:
-    """Экран обьекта"""
+    """Экран объекта."""
 
     def __init__(self, body_color=APPLE_COLOR) -> None:
         self.position = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         self.body_color = body_color
 
     def draw(self):
-        '''Заглушка метод определен в потомках'''
+        '''Заглушка метод определен в потомках.'''
         raise NotImplementedError(f'Определите draw{type(self).__name__}')
 
 
 class Apple(GameObject):
-    """Яблоко"""
+    """Яблоко."""
 
     def __init__(self, body_color=APPLE_COLOR) -> None:
         super().__init__(body_color)
         self.position = self.randomize_position()
 
     def randomize_position(self):
+        """Случайная позиция яблока."""
         return (
             randint(0, GRID_WIDTH) * GRID_SIZE - GRID_SIZE,
             randint(0, GRID_HEIGHT) * GRID_SIZE - GRID_SIZE
         )
 
+# Метод draw класса Snake
     def draw(self):
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
@@ -75,6 +77,7 @@ class Apple(GameObject):
 
 
 class Snake(GameObject):
+    """Змейка."""
 
     def __init__(self):
         self.length = 1
@@ -86,6 +89,10 @@ class Snake(GameObject):
         self.last = None
 
     def move(self):
+        """
+        Обновляет позиция змейка и ещё добавляет новую голову
+        и удаляет последний сегмент, если длина не увеличилась.
+        """
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
@@ -103,10 +110,15 @@ class Snake(GameObject):
                 self.positions.pop()
 
     def update_direction(self):
+        """
+        Возвращает позицию головы змейки
+        (вроде первый элемент в списке positions).
+        """        
         if self.next_direction:
             self.direction = self.next_direction
 
     def draw(self):
+         """Отрисовывает змейку на экране."""
         for position in self.positions[:-1]:
             rect = (pygame.Rect(position, (GRID_SIZE, GRID_SIZE)))
             pygame.draw.rect(screen, self.body_color, rect)
@@ -123,7 +135,10 @@ class Snake(GameObject):
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
 
     def reset(self):
-
+        """
+        Сбрасывает змейку в начальное состояние
+        после столкновение с собой.
+        """
         self.length = 1
         self.positions = [self.position]
         self.direction = RIGHT
