@@ -1,3 +1,7 @@
+"""
+Модуль, который использует библиотеку pygame и функцию randint из модуля random.
+"""
+
 from random import randint
 import pygame
 
@@ -68,6 +72,7 @@ class Apple(GameObject):
 
 # Метод draw класса Snake
     def draw(self):
+        """Отрисовывает объект на экране."""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
