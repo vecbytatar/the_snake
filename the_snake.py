@@ -46,8 +46,6 @@ pygame.display.set_caption('Змейка')
 # Настройка времени:
 clock = pygame.time.Clock()
 
-# Тут опишите все классы игры.
-
 
 class GameObject:
     """Экран объекта."""
@@ -97,6 +95,7 @@ class Snake(GameObject):
         self.next_direction = None
         self.body_color = (0, 255, 0)
         self.last = None
+        self.reset()
 
     def move(self):
         """
