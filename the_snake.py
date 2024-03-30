@@ -75,7 +75,6 @@ class Apple(GameObject):
             randint(0, GRID_HEIGHT) * GRID_SIZE - GRID_SIZE
         )
 
-# Метод draw класса Snake
     def draw(self):
         """Отрисовывает объект на экране."""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
@@ -107,7 +106,7 @@ class Snake(GameObject):
             self.direction = self.next_direction
             self.next_direction = None
 
-        cur_head = self.positions[0]
+        cur_head = self.get_head_position()
         x, y = self.direction
         new_head = ((cur_head[0] + (x * GRID_SIZE)) % SCREEN_WIDTH,
                     (cur_head[1] + (y * GRID_SIZE)) % SCREEN_HEIGHT)
@@ -128,7 +127,6 @@ class Snake(GameObject):
         if self.next_direction:
             self.direction = self.next_direction
 
-    # Метод draw класса Snake
     def draw(self):
         """Отрисовывает змейку на экране."""
         for position in self.positions[:-1]:
@@ -136,12 +134,10 @@ class Snake(GameObject):
             pygame.draw.rect(screen, self.body_color, rect)
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
-        # Отрисовка головы змейки
         head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, head_rect)
         pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
 
-        # Затирание последнего сегмента
         if self.last:
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
