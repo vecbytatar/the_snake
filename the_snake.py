@@ -74,7 +74,7 @@ class Apple(GameObject):
             randint(1, GRID_WIDTH) * GRID_SIZE - GRID_SIZE,
             randint(1, GRID_HEIGHT) * GRID_SIZE - GRID_SIZE
         )
-
+        
     def draw(self):
         """Отрисовывает объект на экране."""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
@@ -130,7 +130,7 @@ class Snake(GameObject):
     def draw(self):
         """Отрисовывает змейку на экране."""
         for position in self.positions[:-1]:
-            rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
+            rect = (pygame.Rect(position, (GRID_SIZE, GRID_SIZE)))
             pygame.draw.rect(screen, self.body_color, rect)
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
@@ -141,7 +141,7 @@ class Snake(GameObject):
         if self.last:
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
-            
+
     def reset(self):
         """
         Сбрасывает змейку в начальное состояние.
