@@ -73,8 +73,8 @@ class Apple(GameObject):
         return (
             randint(1, GRID_WIDTH) * GRID_SIZE - GRID_SIZE,
             randint(1, GRID_HEIGHT) * GRID_SIZE - GRID_SIZE
-        )
-        
+            )
+
     def draw(self):
         """Отрисовывает объект на экране."""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
