@@ -64,16 +64,20 @@ class Apple(GameObject):
     """Яблоко."""
 
     def __init__(self, body_color=APPLE_COLOR) -> None:
-        """Инициализирует яблоко на игром поле."""
+        """Инициализирует яблоко на игровом поле."""
         super().__init__(body_color)
-        self.position = self.randomize_position()
+        self.position = self.randomize_position([])
 
-    def randomize_position(self):
+    def randomize_position(self, snake_positions):
         """Установка случайного положения яблока на поле."""
-        return (
+        new_position = (
             randint(1, GRID_WIDTH) * GRID_SIZE - GRID_SIZE,
             randint(1, GRID_HEIGHT) * GRID_SIZE - GRID_SIZE
         )
+
+        if new_position in snake_positions:
+            return self.randomize_position(snake_positions)
+        return new_position
 
     def draw(self):
         """Отрисовывает объект на экране."""
@@ -188,7 +192,7 @@ def main() -> None:
 
         if snake.get_head_position() == apple.position:
             snake.length += 1
-            apple.position = apple.randomize_position()
+            apple.position = apple.randomize_position(snake.positions)
 
         screen.fill(BOARD_BACKGROUND_COLOR)
         snake.draw()
