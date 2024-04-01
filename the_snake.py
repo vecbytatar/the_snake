@@ -59,6 +59,12 @@ class GameObject:
         """Заглушка метод определен в потомках."""
         raise NotImplementedError(f'Определите draw{type(self).__name__}')
 
+    def draw_cell(self, position) -> None:
+        """Отрисовывает ячейка на экран."""
+        body_rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
+        pygame.draw.rect(screen, self.body_color, body_rect)
+        pygame.draw.rect(screen, BORDER_COLOR, body_rect, 1)
+
 
 class Apple(GameObject):
     """Яблоко."""
@@ -81,9 +87,7 @@ class Apple(GameObject):
 
     def draw(self):
         """Отрисовывает объект на экране."""
-        rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
-        pygame.draw.rect(screen, self.body_color, rect)
-        pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
+        self.draw_cell(self.position)
 
 
 class Snake(GameObject):
@@ -133,14 +137,12 @@ class Snake(GameObject):
 
     def draw(self):
         """Отрисовывает змейку на экране."""
-        head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
-        pygame.draw.rect(screen, self.body_color, head_rect)
-        pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
-
         for position in self.positions[1:]:
-            body_rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
-            pygame.draw.rect(screen, self.body_color, body_rect)
-            pygame.draw.rect(screen, BORDER_COLOR, body_rect, 1)
+            self.draw_cell(position)
+
+        rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
+        pygame.draw.rect(screen, self.body_color, rect)
+        pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
         if self.last:
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
